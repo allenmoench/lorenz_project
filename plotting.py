@@ -26,7 +26,14 @@ def plot_attractor(ax, trajectory, color="steelblue", alpha=0.3, linewidth=0.5):
     Use ax.plot(x, z, ...) for the butterfly view.
     """
     # TODO: plot x vs z
-    pass
+
+    fig, ax = plt.subplots()
+    plt.plot(trajectory[:, 0], trajectory[:, 2])
+    plt.show()
+    ax.plot(x, z, color="steelblue", alpha=0.3, linewidth=0.5)
+
+    return fig, ax
+
 
 
 def plot_ensemble(ax, ensemble_trajectories, reference_trajectory=None,

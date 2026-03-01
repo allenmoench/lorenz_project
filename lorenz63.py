@@ -53,7 +53,8 @@ class Lorenz63:
         dx_dt = self.sigma*(y-x)
         dy_dt = self.rho*x - y - x*z
         dz_dt = x*y - self.beta*z
-        return np.array([dx_dt, dy_dt, dz_dt])
+        tendency_fn = np.array([dx_dt, dy_dt, dz_dt])
+        return tendency_fn
         
 
     def run(self, state0, dt, n_steps):
@@ -121,12 +122,21 @@ class Lorenz63:
         Start with Method 1. Once it works, do Method 2.
         """
         # TODO: implement ensemble integration
-        for i in initial_conditions:
-            init_conds = initial_conditions[i,:]
-            evolved_state = np.ndarray(shape=(n_steps + 1, 3))
-            evolved_state[i,:] = self.run(init_conds, dt, n_steps)
-            return evolved_state
 
+        # method 1:
+        for i in initial_conditions: # still working on this loop. Use append()? call functions from above, like tendency()?
+            evolved_state = []
+            row = initial_conditions[i,:]
+            for row in initial_conditions:
+                row = self.run(row, dt, n_steps)
+
+        
+        # for i in initial_conditions:
+        #     row = initial_conditions[i,:]
+        #     evolved_state = np.ndarray(shape=(n_steps + 1, 3))
+        #     evolved_state[i,:] = self.run(row, dt, n_steps)
+        #     return evolved_state
+        
 
 if __name__ == "__main__":
     # ── Test your code! ──────────────────────────────────────────────

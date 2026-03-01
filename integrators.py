@@ -61,9 +61,14 @@ def integrate(state0, tendency_fn, dt, n_steps):
     # TODO: implement the integration loop
     trajectory = np.zeros((n_steps + 1, len(state0)))
     trajectory[0] = state0
-    for i in range(1, n_steps):
-        trajectory[i,:] = euler_step(trajectory[i-1,:])
-    return trajectory
+
+
+    # # attempt 1:
+    # trajectory = np.zeros((n_steps + 1, len(state0)))
+    # trajectory[0] = state0
+    # for i in range(1, n_steps):
+    #     trajectory[i,:] = euler_step(trajectory[i-1,:]) # can I just change this to euler_step(state, tendency_fn, dt)?  ...where do I put i-1?
+    # return trajectory
     
 
 
