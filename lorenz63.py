@@ -54,6 +54,7 @@ class Lorenz63:
         dy_dt = self.rho*x - y - x*z
         dz_dt = x*y - self.beta*z
         tendency_fn = np.array([dx_dt, dy_dt, dz_dt])
+        print(tendency_fn)
         return tendency_fn
         
 
