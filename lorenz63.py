@@ -81,7 +81,9 @@ class Lorenz63:
         passing self.tendency as the tendency function.
         """
         # TODO: call integrate() with self.tendency
-        return integrate(state0, self.tendency, dt, n_steps)
+        
+        model_evolution = integrate(state0, self.tendency, dt, n_steps)
+        return model_evolution
         
 
     def run_ensemble(self, initial_conditions, dt, n_steps):
@@ -130,6 +132,7 @@ class Lorenz63:
             row = initial_conditions[i,:]
             for row in initial_conditions:
                 row = self.run(row, dt, n_steps)
+            return evolved_state
 
         
         # for i in initial_conditions:
