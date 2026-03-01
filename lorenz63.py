@@ -128,11 +128,11 @@ class Lorenz63:
 
         # method 1:
         for i in initial_conditions: # still working on this loop. Use append()? call functions from above, like tendency()?
-            evolved_state = []
+            ensemble_trajectories = []
             row = initial_conditions[i,:]
             for row in initial_conditions:
                 row = self.run(row, dt, n_steps)
-            return evolved_state
+            return ensemble_trajectories
 
         
         # for i in initial_conditions:

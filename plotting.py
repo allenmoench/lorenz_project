@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def plot_attractor(ax, trajectory, color="steelblue", alpha=0.3, linewidth=0.5):
+def plot_attractor(ax, model_evolution, color="steelblue", alpha=0.3, linewidth=0.5):
     """Plot a single Lorenz attractor trajectory in x-z phase space.
 
     Parameters
@@ -27,12 +27,15 @@ def plot_attractor(ax, trajectory, color="steelblue", alpha=0.3, linewidth=0.5):
     """
     # TODO: plot x vs z
 
-    fig, ax = plt.subplots()
-    plt.plot(trajectory[:, 0], trajectory[:, 2])
-    plt.show()
-    ax.plot(x, z, color="steelblue", alpha=0.3, linewidth=0.5)
+    # # Where does "ax" come in? This is the art I don't get... aren't we only plotting one attractor? I thought "ax" was for multiple sub-plots.
+    # fig, ax = plt.subplots()
+    x = model_evolution[:, 0]
+    z = model_evolution[:, 2]
+    plt.plot(x, z, color="steelblue", alpha=0.3, linewidth=0.5)
+    figure_1 = plt.show()
+    # ax.plot(x, z, color="steelblue", alpha=0.3, linewidth=0.5)
 
-    return fig, ax
+    return figure_1
 
 
 
@@ -66,7 +69,8 @@ def plot_ensemble(ax, ensemble_trajectories, reference_trajectory=None,
     3. Set title, labels, aspect ratio as desired.
     """
     # TODO: implement ensemble plotting
-    pass
+
+    fig, ax = plt.subplots()
 
 
 def plot_ensemble_panels(ensemble_list, reference_trajectory, titles,
