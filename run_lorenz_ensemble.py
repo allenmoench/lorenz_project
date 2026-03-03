@@ -38,7 +38,10 @@ Instructions
 import numpy as np
 
 # TODO: import Lorenz63 from lorenz_project.lorenz63
+from lorenz63 import Lorenz63
+
 # TODO: import plotting functions from lorenz_project.plotting
+from plotting import plot_ensemble_panels
 
 # --- Configuration ---
 DT = 0.01
@@ -53,12 +56,14 @@ SAVE_PATH = "lorenz_ensemble_predictability.png"
 def main():
     """Run the full ensemble experiment."""
     # TODO: Step 1 — Create model
-    # model = Lorenz63()
+    model = Lorenz63()
 
     # TODO: Step 2 — Generate reference trajectory
     # Spin up from (1, 1, 1) for SPINUP_STEPS, then take the final state
     # and run for REFERENCE_STEPS more. The long run IS your reference.
-    
+    spinup = model.run(np.array([1.0, 1.0, 1.0]), DT, SPINUP_STEPS)
+    reference = model.run(spinup[-1], DT, REFERENCE_STEPS)
+
 
     # TODO: Step 3 — Create initial condition clouds
     np.random.seed(42)  # reproducibility
@@ -70,19 +75,19 @@ def main():
     ics_saddle = saddle_state + np.random.randn(N_MEMBERS, 3) * PERTURBATION_SCALE
 
     # TODO: Step 4 — Run ensembles
-    # ensemble_deep = model.run_ensemble(ics_deep, DT, ENSEMBLE_STEPS)
-    # ensemble_high = model.run_ensemble(ics_high, DT, ENSEMBLE_STEPS)
-    # ensemble_saddle = model.run_ensemble(ics_saddle, DT, ENSEMBLE_STEPS)
+    ensemble_deep = model.run_ensemble(ics_deep, DT, ENSEMBLE_STEPS)
+    ensemble_high = model.run_ensemble(ics_high, DT, ENSEMBLE_STEPS)
+    ensemble_saddle = model.run_ensemble(ics_saddle, DT, ENSEMBLE_STEPS)
 
     # TODO: Step 5 — Plot
-    # plot_ensemble_panels(
-    #     [ensemble_deep, ensemble_high, ensemble_saddle],
-    #     reference,
-    #     ["(a) Deep left lobe", "(b) High left lobe", "(c) Saddle region"],
-    #     save_path=SAVE_PATH,
-    # )
+    plot_ensemble_panels(
+        [ensemble_deep, ensemble_high, ensemble_saddle],
+        reference,
+        ["(a) Deep left lobe", "(b) High left lobe", "(c) Saddle region"],
+        save_path=SAVE_PATH,
+    )
 
-    # print(f"Figure saved to {SAVE_PATH}")
+    print(f"Figure saved to {SAVE_PATH}")
 
 
 if __name__ == "__main__":

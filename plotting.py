@@ -31,11 +31,9 @@ def plot_attractor(ax, model_evolution, color="steelblue", alpha=0.3, linewidth=
     # fig, ax = plt.subplots()
     x = model_evolution[:, 0]
     z = model_evolution[:, 2]
-    plt.plot(x, z, color="steelblue", alpha=0.3, linewidth=0.5)
-    figure_1 = plt.show()
+    ax.plot(x, z, color=color, alpha=0.3, linewidth=0.5)
     # ax.plot(x, z, color="steelblue", alpha=0.3, linewidth=0.5)
 
-    return figure_1
 
 
 
@@ -69,10 +67,18 @@ def plot_ensemble(ax, ensemble_trajectories, reference_trajectory=None,
     3. Set title, labels, aspect ratio as desired.
     """
     # TODO: implement ensemble plotting
-    for i in range (ensemble_trajectories.shape[0]):
-        plot_attractor(ax, ensemble_trajectories
-    fig, ax = plt.subplots(1, 1, figsize=(9, 5), sharey=True)
 
+    if reference_trajectory is not None:
+        plot_attractor(ax, reference_trajectory, color=ensemble_color, alpha=0.05, linewidth=0.5)
+
+    for i in range (ensemble_trajectories.shape[0]):
+        plot_attractor(ax, ensemble_trajectories[i], color=ref_color, alpha=0.3, linewidth=0.5)
+
+    if title is not None:
+        ax.set_title(title)
+    ax.set_xlabel("x")
+    ax.set_ylabel("z")
+    ax.set_aspect("auto")
 
 def plot_ensemble_panels(ensemble_list, reference_trajectory, titles,
                          figsize=(18, 5), save_path=None):
@@ -105,7 +111,15 @@ def plot_ensemble_panels(ensemble_list, reference_trajectory, titles,
     4. If save_path: plt.savefig(save_path, dpi=150, bbox_inches='tight')
     """
     # TODO: implement multi-panel figure
-    pass
+    fig, axes = plt.subplots(1, len(ensemble_list), figsize=figsize)
+    for ax, ensemble, title in zip(axes, ensemble_list, titles):
+        print(ensemble.shape, ensemble[:20,:])
+        # print(reference_trajectory.shape, reference_trajectory[:20,:])
+        plot_ensemble(ax, ensemble, reference_trajectory, title=title)
+    plt.tight_layout()
+    if save_path:
+        plt.savefig(save_path, dpi=150, bbox_inches='tight')
+    return fig, axes
 
 
 if __name__ == "__main__":

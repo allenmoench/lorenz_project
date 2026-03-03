@@ -1,7 +1,7 @@
 # lorenz63.py
 """Lorenz 1963 three-variable chaotic model."""
 import numpy as np
-from lorenz_project.integrators import integrate
+from integrators import integrate
 
 
 class Lorenz63:
@@ -27,7 +27,7 @@ class Lorenz63:
         self.beta = float(beta)
         self.state = []
 
-        return sigma, rho, beta
+        # return sigma, rho, beta
 
 
     def tendency(self, state):
@@ -54,7 +54,7 @@ class Lorenz63:
         dy_dt = self.rho*x - y - x*z
         dz_dt = x*y - self.beta*z
         tendency_fn = np.array([dx_dt, dy_dt, dz_dt])
-        print(tendency_fn)
+        # print(tendency_fn)
         return tendency_fn
         
 
@@ -135,11 +135,12 @@ class Lorenz63:
         #     return ensemble_trajectories
 
         ensemble_trajectories = np.zeros([initial_conditions.shape[0], n_steps+1, 3])
-        for i in initial_conditions:
+        n_members = initial_conditions.shape[0]
+        for i in range(n_members):
             row = initial_conditions[i,:]
             # ensemble_trajectories = np.ndarray(shape=(n_steps + 1, 3))
             ensemble_trajectories[i,:] = self.run(row, dt, n_steps)
-            return ensemble_trajectories
+        return ensemble_trajectories
         
 
 if __name__ == "__main__":
