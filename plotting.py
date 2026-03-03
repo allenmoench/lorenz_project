@@ -27,7 +27,7 @@ def plot_attractor(ax, model_evolution, color="steelblue", alpha=0.3, linewidth=
     """
     # TODO: plot x vs z
 
-    # # Where does "ax" come in? This is the art I don't get... aren't we only plotting one attractor? I thought "ax" was for multiple sub-plots.
+    # # Where does "ax" come in? This is the part I don't get... aren't we only plotting one attractor? I thought "ax" was for multiple sub-plots.
     # fig, ax = plt.subplots()
     x = model_evolution[:, 0]
     z = model_evolution[:, 2]
@@ -69,8 +69,9 @@ def plot_ensemble(ax, ensemble_trajectories, reference_trajectory=None,
     3. Set title, labels, aspect ratio as desired.
     """
     # TODO: implement ensemble plotting
-
-    fig, ax = plt.subplots()
+    for i in range (ensemble_trajectories.shape[0]):
+        plot_attractor(ax, ensemble_trajectories
+    fig, ax = plt.subplots(1, 1, figsize=(9, 5), sharey=True)
 
 
 def plot_ensemble_panels(ensemble_list, reference_trajectory, titles,

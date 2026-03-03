@@ -27,7 +27,7 @@ def euler_step(state, tendency_fn, dt):
     # TODO: implement Forward Euler formula
     # y_{n+1} = y_n + f(y_n) * dt
     
-    step = state + tendency_fn * dt
+    step = state + tendency_fn(state) * dt
 
     return step
 

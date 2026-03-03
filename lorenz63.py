@@ -127,19 +127,19 @@ class Lorenz63:
         # TODO: implement ensemble integration
 
         # method 1:
-        for i in initial_conditions: # still working on this loop. Use append()? call functions from above, like tendency()?
-            ensemble_trajectories = []
-            row = initial_conditions[i,:]
-            for row in initial_conditions:
-                row = self.run(row, dt, n_steps)
-            return ensemble_trajectories
-
-        
-        # for i in initial_conditions:
+        # for i in initial_conditions: # still working on this loop. Use append()? call functions from above, like tendency()?
+        #     ensemble_trajectories = []
         #     row = initial_conditions[i,:]
-        #     evolved_state = np.ndarray(shape=(n_steps + 1, 3))
-        #     evolved_state[i,:] = self.run(row, dt, n_steps)
-        #     return evolved_state
+        #     for row in initial_conditions:
+        #         row = self.run(row, dt, n_steps)
+        #     return ensemble_trajectories
+
+        ensemble_trajectories = np.zeros([initial_conditions.shape[0], n_steps+1, 3])
+        for i in initial_conditions:
+            row = initial_conditions[i,:]
+            # ensemble_trajectories = np.ndarray(shape=(n_steps + 1, 3))
+            ensemble_trajectories[i,:] = self.run(row, dt, n_steps)
+            return ensemble_trajectories
         
 
 if __name__ == "__main__":
